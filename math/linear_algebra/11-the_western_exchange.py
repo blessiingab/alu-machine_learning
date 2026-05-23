@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-this module returns the transpose of a matrix using numpy
+transpose an n x m matrix (2D list) and return the transposed matrix.
 """
 
 
 def np_transpose(matrix):
     """
-    returns the transpose of a numpy.ndarray
+    Returns the transpose of a 2D matrix
     """
     return matrix.transpose()

@@ -1,1 +1,1 @@
-math director
+ALU Machine learning

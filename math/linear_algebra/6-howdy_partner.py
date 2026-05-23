@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 """
-concatenates two arrays.
+6 Howdy partner
 """
 
 
 def cat_arrays(arr1, arr2):
     """
-    arr1: list of ints/floats
-    arr2: list of ints/floats
+    Concatenates two arrays
     """
     return arr1 + arr2

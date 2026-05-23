@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""
-    flips a 2D matrix over its main diagonal.
-"""
+""" flip who over ? """
 
 
 def matrix_transpose(matrix):
     """
-    matrix: matrix to be transposed
+    Returns the transpose of a 2D matrix
     """
-    trans_matrix = [[matrix[j][i] for j in range(len(matrix))]
-                    for i in range(len(matrix[0]))]
-    return trans_matrix
+    transpose = [
+        [matrix[j][i] for j in range(len(matrix))]
+        for i in range(len(matrix[0]))
+    ]
+    return transpose

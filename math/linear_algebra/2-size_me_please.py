@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
-"""
-   counts the shape of the matrix regardless of the dimensions.
-"""
+""" Function that calculates
+ the shape of a matrix
+ using recursion
+ """
 
 
 def matrix_shape(matrix):
     """
-    matrix: matrix to be evaluated
+    Calculates the shape of a matrix
     """
     shape = []
-    while isinstance(matrix, list):
+    while type(matrix) == list:
         shape.append(len(matrix))
-        matrix = matrix[0] if matrix else None
+        matrix = matrix[0]
     return shape
