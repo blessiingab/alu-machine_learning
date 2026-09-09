@@ -142,51 +142,62 @@ class DeepNeuralNetwork:
             self.__weights['W' + str(i)] -= (alpha * dw)
             self.__weights['b' + str(i)] -= (alpha * db)
 
-    def train(self, X, Y, iterations=5000,
-              alpha=0.05, verbose=True, graph=True, step=100):
-        """ Train the deep neural network
+      def train(self, X, Y, iterations=5000, alpha=0.05, verbose=True,
+              graph=True, step=100):
+        """Train the deep neural network.
 
         Args:
-            X (_type_): _description_
-            Y (_type_): _description_
-            iterations (int, optional): _description_. Defaults to 5000.
-            alpha (float, optional): _description_. Defaults to 0.05.
-            verbose (bool, optional): _description_. Defaults to True.
-            graph (bool, optional): _description_. Defaults to True.
-            step (int, optional): _description_. Defaults to 100.
-
-        Raises:
-            TypeError: _description_
-            ValueError: _description_
-            TypeError: _description_
-            ValueError: _description_
+            X (numpy.ndarray): Input data of shape (nx, m)
+            Y (numpy.ndarray): Correct labels of shape (1, m)
+            iterations (int): Number of iterations to train
+            alpha (float): Learning rate
+            verbose (bool): Print cost during training
+            graph (bool): Plot cost after training
+            step (int): Number of iterations between printing/plotting
 
         Returns:
-            _type_: _description_
+            tuple: Evaluation of the training data after training
         """
-
         if not isinstance(iterations, int):
             raise TypeError('iterations must be an integer')
-        if iterations < 1:
+        if iterations <= 0:
             raise ValueError('iterations must be a positive integer')
+
         if not isinstance(alpha, float):
             raise TypeError('alpha must be a float')
-        if alpha < 0:
+        if alpha <= 0:
             raise ValueError('alpha must be positive')
 
-        costs = []
-        for i in range(iterations):
-            self.forward_prop(X)
-            self.gradient_descent(Y, self.cache, alpha)
-            if verbose and i % step == 0:
+        if verbose or graph:
+            if not isinstance(step, int):
+                raise TypeError('step must be an integer')
+            if step <= 0 or step > iterations:
+                raise ValueError(
+                    'step must be positive and <= iterations'
+                )
 
-                cost = self.cost(Y, self.cache["A"+str(self.L)])
+        costs = []
+        iterations_list = []
+
+        for i in range(iterations + 1):
+            A, cache = self.forward_prop(X)
+            cost = self.cost(Y, A)
+
+            if i == 0 or i == iterations or i % step == 0:
                 costs.append(cost)
-                print('Cost after {} iterations: {}'.format(i, cost))
+                iterations_list.append(i)
+
+                if verbose:
+                    print("Cost after {} iterations: {}".format(i, cost))
+
+            if i < iterations:
+                self.gradient_descent(Y, cache, alpha)
+
         if graph:
-            plt.plot(np.arange(0, iterations, step), costs)
+            plt.plot(iterations_list, costs, 'b-')
             plt.xlabel('iteration')
             plt.ylabel('cost')
             plt.title('Training Cost')
             plt.show()
+
         return self.evaluate(X, Y)
