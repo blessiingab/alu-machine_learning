@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python3
 """Display statistics about Nginx logs stored in MongoDB."""
 
