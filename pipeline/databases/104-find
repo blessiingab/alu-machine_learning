@@ -1,3 +1,2 @@
-db.school.find({
-    name: /^Holberton/
-});
+// Lists all documents in the school collection whose name starts with Holberton
+db.school.find({ name: /^Holberton/ });
