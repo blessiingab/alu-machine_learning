@@ -1,4 +1,4 @@
-
+# Create a view for students who need meetings
 CREATE VIEW need_meeting AS
 SELECT name
 FROM students
